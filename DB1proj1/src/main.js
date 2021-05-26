@@ -23,11 +23,13 @@ await connection.connectAsync();  //promise
 
 let sql = "select * from user";
 let result = await connection.queryAsync(sql);
-console.log(result);
-return result;
+
 
 //close connection
 await connection.endAsync();
+
+console.log(result);
+return result;
 console.log("connection closed")
 
   }catch(err) {

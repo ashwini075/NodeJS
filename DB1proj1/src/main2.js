@@ -1,4 +1,5 @@
 const Promise = require("bluebird");
+
 const mysql = require("mysql");
 
 Promise.promisifyAll(require("mysql/lib/Connection").prototype);
@@ -14,8 +15,25 @@ const DB_config = {
 };
 
 let addRecord = async () =>{
-    const Connection = mysql.createConnection(DB_config);
+    try{
+        const Connection = mysql.createConnection(DB_config);
+
     await Connection.connectAsync();
-    
+
+        let sql = "insert into user (name,email,mobile) values(?, ? ,? ,?)" ;   
+        let insert =await Connection.queryAsync(sql,[
+           
+            "Akash",
+            "akash@gmail.com",
+            "7548612388",
+        ]);
+   
     await Connection.endAsync();
-}
+    return insert;
+    console.log("Data inserted succussfully");
+
+    }catch(err){
+        console.log("error occured",err);
+    };
+};
+addRecord();
